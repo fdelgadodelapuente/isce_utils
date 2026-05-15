@@ -7,7 +7,7 @@ alos2_wd1_deramp_example.zip is the swath 4 of an ALOS-2 ScanSAR interferogram i
 
 For exporting an ISCE interferogram to GMT, unzip the alos2_sm3_220711_230612.zip file (ALOS-2 stripmap SM3 over Aniakchak Crater) , run isce2gmt.m in MATLAB and then run isce2gmt.sh in the terminal (it is C Shell despite the .sh extension).  The code will generate the following image.
 
-<img width="1068" height="869" alt="aniakchak_alos2_sm3_2022_2023" src="https://github.com/user-attachments/assets/beb5df29-f929-4857-ba8a-d25756dc5c4a" />
+<img width="534" height="435" alt="aniakchak_alos2_sm3_2022_2023" src="https://github.com/user-attachments/assets/beb5df29-f929-4857-ba8a-d25756dc5c4a" />
 
 
 If you use these codes, please cite the following paper.
