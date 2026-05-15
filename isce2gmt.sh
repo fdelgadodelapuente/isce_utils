@@ -69,7 +69,7 @@ echo "-72.146405 -40.523152 "| gmt psxy $proj $bounds -St0.2  -W1,black $misc >>
 
 
 set misc = "-V -O"
-gmt psbasemap -L-158/56.4/56.4/10/10+l  $bounds $proj $misc >> $psfile.ps
+gmt psbasemap -L-158/56.42/56.42/10/10+l  $bounds $proj $misc >> $psfile.ps
 
 
 gmt psconvert -A -Tf $psfile.ps
