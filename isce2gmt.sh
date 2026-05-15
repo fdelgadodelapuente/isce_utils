@@ -51,7 +51,7 @@ gmt psxy -J -R -L -G255 -W0p,black $misc << EOF >> $psfile.ps
 -72.40 -40.56
 -72.40 -40.65 
 EOF
-gmt psscale -Ctest.cpt $misc -D0.2/9/1.5/0.25 -B${ticks}::/:cm: >> $psfile.ps
+gmt psscale -Ctest.cpt $misc -D0.2/1/1.5/0.25 -B${ticks}::/:cm: >> $psfile.ps
 gmt psxy -J -R -L -G255 -W0p,black $misc << EOF >> $psfile.ps
 -72.065 -40.64 
 -72.010 -40.64
@@ -62,7 +62,7 @@ EOF
 echo "-157.8 56.4 101 0.75" | gmt psxy $proj $bounds -Sv0.15i+ea -G0/0/0 -W1,black $misc >> $psfile.ps
 echo "-157.8 56.4 011 0.75" | gmt psxy $proj $bounds -Sv0.15i+ea -G170/170/170 -W1,black $misc >> $psfile.ps
 gmt pstext -J -R $misc -F+f+a+j -G255/255/255 << END >> $psfile.ps
--158.9 57.35 12,1,black 0 BL ALOS-2 WD1 2022/07/11 - 2023/06/12
+-159 57.05 12,1,black 0 BL ALOS-2 SM3 2022/07/11 - 2023/06/12
 -72.04 -40.62 7,1,black 0 BL 37
 END
 echo "-72.146405 -40.523152 "| gmt psxy $proj $bounds -St0.2  -W1,black $misc >> $psfile.ps #2011 eruptive vent
