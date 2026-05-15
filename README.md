@@ -5,7 +5,7 @@ alos2_wd1_deramp_example.zip is the swath 4 of an ALOS-2 ScanSAR interferogram i
 <img width="1920" height="1440" alt="isce_deramp" src="https://github.com/user-attachments/assets/450df6ee-1b20-40d3-a15f-e61e21cc3bec" />
 
 
-For exporting an ISCE interferogram to GMT, first run isce2gmt.m in MATLAB and then run isce2gmt.sh in the terminal (it is C Shell despite the .sh extension).  The code will generate the following image.
+For exporting an ISCE interferogram to GMT, unzip the alos2_sm3_220711_230612.zip file, first run isce2gmt.m in MATLAB and then run isce2gmt.sh in the terminal (it is C Shell despite the .sh extension).  The code will generate the following image.
 
 <img width="1068" height="869" alt="aniakchak_alos2_sm3_2022_2023" src="https://github.com/user-attachments/assets/beb5df29-f929-4857-ba8a-d25756dc5c4a" />
 
