@@ -131,7 +131,7 @@ Now install it in Applicatons/isce/isce2-2.6.4
 rm -rf config.log .sconfig.dblite .sconf_temp .sconsign.dblite; SCONS_CONFIG_DIR=/Applications/insar_software/isce scons install  
 ```
 
-Source it with bash file
+Source it with shell script called insar.sh. Inp is the software version (2.2.0, 2.5.1, 2.6.4, etc)
 ```
 #!/bin/sh
 
