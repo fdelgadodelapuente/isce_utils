@@ -132,7 +132,7 @@ rm -rf config.log .sconfig.dblite .sconf_temp .sconsign.dblite; SCONS_CONFIG_DIR
 ```
 
 Source it with bash file
-\begin{Verbatim}[frame=single]
+```
 #!/bin/sh
 
 inp="$1"
@@ -147,7 +147,7 @@ export PATH=/Applications/insar_software/isce/isce-$1/contrib/stack/stripmapStac
 #export PATH=/Applications/isce/isce$1/contrib/stack/topsStack:$PATH
   
 export GDAL_DATA=/opt/local/share/gdal
-\end{Verbatim}
+```
 
 
 
