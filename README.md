@@ -146,5 +146,9 @@ export PATH=/Applications/insar_software/isce/isce-$1/contrib/stack/stripmapStac
 export GDAL_DATA=/opt/local/share/gdal
 ```
 
+Patches for ISCE 2.6.4 that are required to run with the lastest computers and with the latest missions
+https://github.com/isce-framework/isce2/pull/1021
+https://github.com/isce-framework/isce2/pull/28123
+https://github.com/isce-framework/isce2/pull/982
 
 
