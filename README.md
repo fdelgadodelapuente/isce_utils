@@ -105,10 +105,7 @@ PRJ_SCONS_INSTALL = /Applications/isce/isce2-2.6.4/install/isce
 
 LIBPATH = /opt/local/lib
 #the last path in CPP is new for autoRIFT in 2.4.x version
-CPPPATH = 
-/opt/local/Library/Frameworks/Python.framework/Versions/3.13/include/python3.13 
-/opt/local/include /opt/local/include/opencv4  /opt/local/lib/opencv4
-/opt/local/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/numpy/core/include
+CPPPATH = /opt/local/Library/Frameworks/Python.framework/Versions/3.13/include/python3.13  /opt/local/include /opt/local/include/opencv4  /opt/local/lib/opencv4 /opt/local/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/numpy/core/include
 FORTRANPATH = /opt/local/include
 FORTRAN = /opt/local/bin/gfortran
 CC = /opt/local/bin/gcc
