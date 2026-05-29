@@ -18,6 +18,7 @@ Delgado, F. (2026). Abnormally large magma flux does not lead to eruption in sub
 
 
 For compiling the software in macOS 
+```
 ### Feb 22 2019 MacMini2014/MacBookAir2015, High Sierra and Mojave, gcc7
 ### Nov XY 2021 MacMini2014 Monterey, python37 and gcc11 
 ### Feb 06 2025 MacBookAir2015 Monterey, python312 and gcc13
@@ -92,3 +93,5 @@ sudo port install py313-gdal  #python binding for gdal
 sudo port install gmt5 +fftw3 #only for gmt plots
 sudo port install py313-rasterio  #for loading and exporting ifgs in python
 sudo port install ImageMagick #for exporting interferograms to .kml
+
+```
