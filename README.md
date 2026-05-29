@@ -148,7 +148,7 @@ export GDAL_DATA=/opt/local/share/gdal
 
 Patches for ISCE 2.6.4 that are required to run with the lastest computers and with the latest missions
 
-[Fix type casting in chi squared print statement](https://github.com/isce-framework/isce2/pull/1021)
+[Fix type casting in chi squared print statement in stripmapApp misregistration step](https://github.com/isce-framework/isce2/pull/1021)
 
 [Sentinel-1D](https://github.com/isce-framework/isce2/pull/28123)
 
