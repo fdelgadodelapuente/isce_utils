@@ -150,8 +150,8 @@ Patches for ISCE 2.6.4 that are required to run with the lastest computers and w
 
 [Fix type casting in chi squared print statement in stripmapApp misregistration step](https://github.com/isce-framework/isce2/pull/1021)
 
-[Sentinel-1D](https://github.com/isce-framework/isce2/pull/28123)
+[Support for Sentinel-1D](https://github.com/isce-framework/isce2/pull/28123)
 
-[SAOCOM-1/ALOS-4](https://github.com/isce-framework/isce2/pull/982)
+[Support for SAOCOM-1 and ALOS-4](https://github.com/isce-framework/isce2/pull/982)
 
 
