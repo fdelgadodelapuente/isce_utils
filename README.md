@@ -12,4 +12,4 @@ For exporting an ISCE interferogram to GMT, unzip the alos2_sm3_220711_230612.zi
 
 If you use these codes, please cite the following paper.
 
-Delgado, F. (2026). Abnormally large magma flux does not lead to eruption in subduction zone calderas: The 2022–2023 episode of uplift of Aniakchak Crater (Aleutians). Geophysical Research Letters, 53, e2025GL117786. https://doi.org/10.1029/2025GL117786
+[Delgado, F. (2026). Abnormally large magma flux does not lead to eruption in subduction zone calderas: The 2022–2023 episode of uplift of Aniakchak Crater (Aleutians). Geophysical Research Letters, 53, e2025GL117786. https://doi.org/10.1029/2025GL117786](https://doi.org/10.1029/2025GL117786)
