@@ -95,3 +95,59 @@ sudo port install py313-rasterio  #for loading and exporting ifgs in python
 sudo port install ImageMagick #for exporting interferograms to .kml
 
 ```
+
+
+Create /Applicatons/isce/SConfigISCE file for scons
+```
+PRJ_SCONS_BUILD   = /Applications/isce/isce2-2.6.4/build/isce
+PRJ_SCONS_INSTALL = /Applications/isce/isce2-2.6.4/install/isce
+
+
+LIBPATH = /opt/local/lib
+#the last path in CPP is new for autoRIFT in 2.4.x version
+CPPPATH = 
+/opt/local/Library/Frameworks/Python.framework/Versions/3.13/include/python3.13 
+/opt/local/include /opt/local/include/opencv4  /opt/local/lib/opencv4
+/opt/local/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/numpy/core/include
+FORTRANPATH = /opt/local/include
+FORTRAN = /opt/local/bin/gfortran
+CC = /opt/local/bin/gcc
+CXX = /opt/local/bin/g++
+
+#libraries needed for mdx display utility
+MOTIFLIBPATH = /opt/local/lib       # path to libXm.dylib
+X11LIBPATH = /opt/local/lib         # path to libXt.dylib
+MOTIFINCPATH = /opt/local/include   # path to location of the Xm
+                                    # directory with various include files (.h)
+X11INCPATH = /opt/local/include     # path to location of the X11 directory
+                                    # with various include files
+
+# turn off CUDA code on this computer
+ENABLE_CUDA = FALSE
+```
+
+Now install it in Applicatons/isce/isce2-2.6.4
+```
+rm -rf config.log .sconfig.dblite .sconf_temp .sconsign.dblite; SCONS_CONFIG_DIR=/Applications/insar_software/isce scons install  
+```
+
+Source it with bash file
+\begin{Verbatim}[frame=single]
+#!/bin/sh
+
+inp="$1"
+echo "Loading ISCE $1"
+ 
+export PYTHONPATH=/Applications/insar_software/isce/isce-$1/install:$PYTHONPATH
+export PATH=/Applications/insar_software/isce/isce-$1/install/isce/bin:$PATH
+export PATH=/Applications/insar_software/isce/isce-$1/install/isce/applications:$PATH
+export ISCE_HOME=/Applications/insar_software/isce/isce-$1/install/isce
+ 
+export PATH=/Applications/insar_software/isce/isce-$1/contrib/stack/stripmapStack:$PATH
+#export PATH=/Applications/isce/isce$1/contrib/stack/topsStack:$PATH
+  
+export GDAL_DATA=/opt/local/share/gdal
+\end{Verbatim}
+
+
+
