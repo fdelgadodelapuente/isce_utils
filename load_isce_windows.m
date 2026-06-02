@@ -72,11 +72,14 @@ end
 %satellites wvls
 wvl.csk       = 0.031228381041666666;
 wvl.tsx       = 0.0310665781638;
+wvl.ers       = 0.05656461744915888;
 wvl.envisat   = 0.0562356424;
 wvl.rs2       = 0.055465772432999993;
 wvl.sentinel  = 0.05546576;
 wvl.alos      = 0.236057;
 wvl.alos2     = 0.2424525;
+wvl.alos4     = 0.2424443;
+wvl.saocom    = 0.23513133960784313;
 wvl.dem       = 1; %for DEMs, no scaling
 
 disp(['Opening ',filename,' satellite wvl ',lambda])
@@ -84,14 +87,17 @@ disp(['x1 ','nx ', 'dx ', 'y2 ', 'ny ', 'dy '])
 disp([num2str(x1,5) num2str(nx) num2str(dx) num2str(y2) num2str(ny) num2str(dy), {' '}])
 
 if strcmp(lambda,'alos2')==1;     lambda =wvl.alos2; end
+if strcmp(lambda,'alos4')==1;     lambda =wvl.alos4; end
 if strcmp(lambda,'alos')==1;      lambda =wvl.alos;  end
 if strcmp(lambda,'csk')==1;       lambda =wvl.csk;   end
 if strcmp(lambda,'tsx')==1;       lambda =wvl.tsx;   end
+if strcmp(lambda,'ers')==1;  	  lambda =wvl.ers; end
 if strcmp(lambda,'envisat')==1;   lambda =wvl.envisat; end
 if strcmp(lambda,'sentinel')==1;  lambda =wvl.sentinel; end
 if strcmp(lambda,'rs2')==1;       lambda =wvl.rs2; end
+if strcmp(lambda,'saocom')==1;    lambda =wvl.saocom; end
 if strcmp(lambda,'dem')==1;       lambda =wvl.dem; end %to compensate for line 75
-filename
+%filename
 h =fopen(filename,'r');
 [F,count] = fread(h,2*nx*ny,'float32');
 rmg = reshape(F,2*nx,ny);
@@ -99,8 +105,8 @@ phs = rmg(nx+1:nx*2,:);
 mag = flipud(rmg(1:nx,:)');
 phs = flipud(phs'); % need to switch rows and columns
 phs(phs==0)=NaN;
-%phs(mag<1)=NaN;
-%phs(mag<1e3)=NaN; %mask edges with filtering stripes
+mag_thr = 1e-0; %1, 1e-2, 1e-3
+phs(mag_thr<1)=NaN; %mask edges with filtering stripes
 
 if strcmp(meanvel,'yes')==1;
     data=-phs/100; %cm to m
@@ -110,6 +116,7 @@ else
     data  = -phs*lambda/(4*pi) ; %phase to meters
     end
 end
+if strcmp(meanvel,'cor')==1; data=phs; end  %Export correlation instead of phase
 
 if(scaleval)
     olddata = data;
@@ -147,7 +154,14 @@ lat=Y;
     mstruct.geoid = [r_a r_e];
     mstruct.zone = zone;
     mstruct      = defaultm(mstruct);
+    ver=char(matlabRelease.Release);
+    ver=str2num(ver(2:5));
+    if ver <2026
     [X,Y]        = mfwdtran(mstruct,Y,X);
+    else
+    [X,Y]        = projfwd(mstruct,Y,X);       
+    end
+    %%%%round([X(2500,3500) Y(3500,2500)]) %the same for 2025 and 2026
 
 pixelsize=mean([sqrt((X(1)-X(2))^2+(Y(1)-Y(2))^2) sqrt((X(nx*ny-1)-X(nx*ny))^2+(Y(nx*ny-1)-Y(nx*ny))^2)]);
 X=X+pixelsize/2;%We use a coord system with the upper left corner of each pixel but the dem coord in the dem.rsc file is usually the center.
@@ -273,16 +287,18 @@ end
 
 if(nargin>=12)
     fid  = fopen(conncomp,'r');
-    temp = fread(fid,[nx,ny],'uint8');
+    temp = fread(fid,[ox,oy],'uint8');
     conncomp=flipud(temp');
     data(conncomp==0)=NaN;
     if(nargin>=13)
+        if exist('conncomp_ind')==0; conncomp_ind=1;end
         data(conncomp>conncomp_ind)=NaN;
+        %%%%%%%data(conncomp~=conncomp_ind)=NaN;
     end
     %data.conncomp=conncomp;
     datastruct.data=data;
+    datastruct.conn=conncomp;
     %%%%    figure;pcolor(conncomp);shading flat;colormap jet;colorbar
 end
-
 
 end
