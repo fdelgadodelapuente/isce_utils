@@ -39,38 +39,53 @@ end
 % else
 %     head_dir='old';
 % end
-if (isfinite(coords.x1)==0 & isunix==1) %%parse coordinates from .vrt file
-    cmd = strcat('grep rasterXSize ',{' '},filename,'.vrt');
-    [b,tmp]=unix(cmd{1});
-    %nx=str2double(tmp(26:29));
-    %ny=str2double(tmp(45:47));
-    tmp=str2double(regexp(tmp,'[\d.]+','match'));
-    nx=tmp(1);
-    ny=tmp(2);
 
-    cmd = strcat('grep GeoTransform ',{' '},filename,'.vrt');
-    [b,tmp]=unix(cmd{1});
-    tmp=convertCharsToStrings(tmp);
-    tmp = erase(tmp,'<GeoTransform>');
-    tmp = erase(tmp,'</GeoTransform>');
-    tmp = erase(tmp,',');
-    tmp = split(tmp,[" "]);
-    tmp = tmp(end-5:end);
-    x1=str2num(tmp(1));
-    dx=str2num(tmp(2));
-    y2=str2num(tmp(4));
-    dy=str2num(tmp(6));
-else
-    x1=coords.x1;
-    y2=coords.y2;
-    dx=coords.dx;
-    nx=coords.nx;
-    ny=coords.ny;
-    dy=-dx;
-    %if isfinite(coords.dy)==1
-   % 	dy=coords.dy;  %only for Tara's GMT grids
-   % end
-end
+
+% if isfinite(coords.x1)==0 %%parse coordinates from .vrt file
+%     cmd = strcat('grep rasterXSize ',{' '},filename,'.vrt');
+%     [b,tmp]=unix(cmd{1});
+%     %nx=str2double(tmp(26:29));
+%     %ny=str2double(tmp(45:47));
+%     tmp=str2double(regexp(tmp,'[\d.]+','match'));
+%     nx=tmp(1);
+%     ny=tmp(2);
+% 
+%     cmd = strcat('grep GeoTransform ',{' '},filename,'.vrt');
+%     [b,tmp]=unix(cmd{1});
+%     tmp=convertCharsToStrings(tmp);
+%     tmp = erase(tmp,'<GeoTransform>');
+%     tmp = erase(tmp,'</GeoTransform>');
+%     tmp = erase(tmp,',');
+%     tmp = split(tmp,[" "]);
+%     tmp = tmp(end-5:end);
+%     x1=str2num(tmp(1));
+%     dx=str2num(tmp(2));
+%     y2=str2num(tmp(4));
+%     dy=str2num(tmp(6));
+% else
+%     x1=coords.x1;
+%     y2=coords.y2;
+%     dx=coords.dx;
+%     nx=coords.nx;
+%     ny=coords.ny;
+%     dy=-dx;
+%     %if isfinite(coords.dy)==1
+%    % 	dy=coords.dy;  %only for Tara's GMT grids
+%    % end
+% end
+
+xml = xmlread([filename '.vrt']);
+root = xml.getDocumentElement;
+nx = str2double(char(root.getAttribute('rasterXSize')));
+ny = str2double(char(root.getAttribute('rasterYSize')));
+
+txt = fileread([filename '.vrt']);
+token = regexp(txt,'<GeoTransform>([^<]+)</GeoTransform>','tokens','once');
+tmp = str2double(strsplit(token{1},','));
+x1 = tmp(1);
+dx = tmp(2);
+y2 = tmp(4);
+dy = tmp(6);
 
 %satellites wvls
 wvl.csk       = 0.031228381041666666;
@@ -256,15 +271,11 @@ end
 
 if(nargin>=10)
     cor_file0=cor_file;
-%     if strcmp(cor_file0(1),'2')==1
-%         cor_file0=cor_file0(19:end); %remove prefix for TS
-%     end
-    %cor_file=cor_file(19:end); %for caulle 2016-2018 paper??
-    %%%%if strcmp(cor_file(19:21),'phs')==1 %phsig.cor, only for zerodop old file format
-    cmd = strcat('grep band ',{' '},cor_file,'.vrt | wc -l');
-    [~,bands]=unix(cmd{1}); bands=str2num(bands);
-    %%%%if strcmp(cor_file0(1:3),'phs')==1 %phsig.cor, only for zerodop old file format
-    if bands==1 %phsig.cor, use modern .vrt files
+    txt = fileread(strcat(cor_file0,'.vrt'));
+    bands = numel(regexp(txt,'<VRTRasterBand\b','match'));
+    %%cmd = strcat('grep band ',{' '},cor_file,'.vrt | wc -l');
+    %%[~,bands]=unix(cmd{1}); bands=str2num(bands);
+    if bands==1 %phsig.cor
         h =fopen(cor_file,'r');
         [F,count] = fread(h,ox*oy,'float32');
         cor = reshape(F,ox,oy);
@@ -280,6 +291,34 @@ if(nargin>=10)
         datastruct.data=data;
         datastruct.cor=cor;
 end
+
+% if(nargin>=10)
+%     cor_file0=cor_file;
+%     if isunix==1    
+%     cmd = strcat('grep band ',{' '},cor_file,'.vrt | wc -l');
+%     [~,bands]=unix(cmd{1}); bands=str2num(bands);
+%     if bands==1 %phsig.cor, use modern .vrt files
+%         h =fopen(cor_file,'r');
+%         [F,count] = fread(h,ox*oy,'float32');
+%         cor = reshape(F,ox,oy);
+%         cor = flipud(cor'); % need to switch rows and columns
+%     else %topophase.cor
+%         fid         = fopen(cor_file,'r','native');
+%         [rmg,count] = fread(fid,[ox,oy*2],'real*4');
+%         status      = fclose(fid);
+%         cor         = flipud((rmg(1:ox,2:2:oy*2))');
+%     end
+%     else
+%         h =fopen(cor_file,'r');
+%         [F,count] = fread(h,ox*oy,'float32');
+%         cor = reshape(F,ox,oy);
+%         cor = flipud(cor'); % need to switch rows and columns
+%     end
+%         cor(cor==0)=NaN;
+%         data (cor<cor_thresh)= NaN;
+%         datastruct.data=data;
+%         datastruct.cor=cor;
+% end
 
 if(nargin>=9)
     fid  = fopen(demf,'r');
