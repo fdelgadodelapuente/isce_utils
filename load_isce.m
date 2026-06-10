@@ -272,7 +272,7 @@ end
 if(nargin>=10)
     cor_file0=cor_file;
     txt = fileread(strcat(cor_file0,'.vrt'));
-    bands = numel(regexp(txt,'<VRTRasterBand\b','match'));
+    bands = numel(regexp(txt,'<VRTRasterBand','match'));
     %%cmd = strcat('grep band ',{' '},cor_file,'.vrt | wc -l');
     %%[~,bands]=unix(cmd{1}); bands=str2num(bands);
     if bands==1 %phsig.cor
@@ -291,34 +291,6 @@ if(nargin>=10)
         datastruct.data=data;
         datastruct.cor=cor;
 end
-
-% if(nargin>=10)
-%     cor_file0=cor_file;
-%     if isunix==1    
-%     cmd = strcat('grep band ',{' '},cor_file,'.vrt | wc -l');
-%     [~,bands]=unix(cmd{1}); bands=str2num(bands);
-%     if bands==1 %phsig.cor, use modern .vrt files
-%         h =fopen(cor_file,'r');
-%         [F,count] = fread(h,ox*oy,'float32');
-%         cor = reshape(F,ox,oy);
-%         cor = flipud(cor'); % need to switch rows and columns
-%     else %topophase.cor
-%         fid         = fopen(cor_file,'r','native');
-%         [rmg,count] = fread(fid,[ox,oy*2],'real*4');
-%         status      = fclose(fid);
-%         cor         = flipud((rmg(1:ox,2:2:oy*2))');
-%     end
-%     else
-%         h =fopen(cor_file,'r');
-%         [F,count] = fread(h,ox*oy,'float32');
-%         cor = reshape(F,ox,oy);
-%         cor = flipud(cor'); % need to switch rows and columns
-%     end
-%         cor(cor==0)=NaN;
-%         data (cor<cor_thresh)= NaN;
-%         datastruct.data=data;
-%         datastruct.cor=cor;
-% end
 
 if(nargin>=9)
     fid  = fopen(demf,'r');
