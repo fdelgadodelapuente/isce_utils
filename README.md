@@ -1,4 +1,16 @@
-ISCE2 MATLAB/Python/GMT utilities for loading interferograms in the JPL RMG file format, mask the data, remove ramps with or without an empirical correlation between phase and topography, and for exporting to GMT grids. These utilities require to requiere to download [grdwrite2](https://www.mathworks.com/matlabcentral/fileexchange/26290-grdwrite2) and [grdread2](https://www.mathworks.com/matlabcentral/fileexchange/25683-grdread2). They include ALOS-2 interferograms as sample data sets.  
+ISCE2 MATLAB/Python/GMT utilities for pre-post processing.
+
+
+
+[sm_info.py](https://github.com/fdelgadodelapuente/isce_utils/blob/main/README.md#:~:text=sm_info.py) takes the stripmapApp metadata, calculates the pixel ratio and then plots the viewing geometry and the swath under the assumption of flat spherical earth. This can be useful for people learning InSAR.
+
+<img width="534" height="435" alt="aniakchak_alos2_sm3_2022_2023" src="https://github.com/fdelgadodelapuente/fdelgadodelapuente.github.io/blob/fdelgadodelapuente-patch-1/images/swath.jpg" />
+
+
+
+
+
+Most of the files in here load interferograms in the JPL RMG file format, mask the data, remove ramps with or without an empirical correlation between phase and topography, and for exporting to GMT grids. These utilities require to requiere to download [grdwrite2](https://www.mathworks.com/matlabcentral/fileexchange/26290-grdwrite2) and [grdread2](https://www.mathworks.com/matlabcentral/fileexchange/25683-grdread2). They include ALOS-2 interferograms as sample data sets.  
 
 alos2_wd1_deramp_example.zip is the swath 4 of an ALOS-2 ScanSAR interferogram in range azimuth coordinates over Aniakchak Crater in Alaska. For removing the ramp uncomment lines 93-95 in deramp.py. These lines will mask unwrapping errors. The code will generate the following image and export the corrected interferogram.
 
@@ -9,10 +21,6 @@ For exporting an ISCE interferogram to GMT, unzip the alos2_sm3_220711_230612.zi
 
 <img width="534" height="435" alt="aniakchak_alos2_sm3_2022_2023" src="https://github.com/user-attachments/assets/beb5df29-f929-4857-ba8a-d25756dc5c4a" />
 
-
-[sm_info.py](https://github.com/fdelgadodelapuente/isce_utils/blob/main/README.md#:~:text=sm_info.py) takes the stripmapApp metadata, calculates the pixel ratio and then plots the viewing geometry and the swath under the assumption of flat spherical earth. This can be useful for people learning InSAR.
-
-<img width="534" height="435" alt="aniakchak_alos2_sm3_2022_2023" src="https://github.com/fdelgadodelapuente/fdelgadodelapuente.github.io/blob/fdelgadodelapuente-patch-1/images/swath.jpg" />
 
 If you use these codes, please cite the following paper.
 
