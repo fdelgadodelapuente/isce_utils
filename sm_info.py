@@ -4,6 +4,8 @@
 #https://github.com/isce-framework/isce2-docs/blob/master/Notebooks/UNAVCO_2020/Stripmap/stripmapApp.ipynb
 #https://github.com/isceplus/2026-isceplus/blob/main/S03_Stripmap_data_processing_with_stripmapApp/stripmapApp.ipynb
 
+#F.D. 2026/10/06 updated to plot swath dimensions 
+
 import isce
 import isceobj
 import isceobj.StripmapProc.StripmapProc as St
@@ -142,6 +144,7 @@ plt.ylabel('Elevation [km]')
 plt.xlabel('Distance along Earth surface [km]')
 plt.text(x_mid-20,-80,f'{S:.1f} km' , fontsize=14)
 plt.text(25,200,f'H = {H/1e3:.0f} km' , fontsize=10)
+plt.axis('equal')
 plt.text(500,650,f'near  = {r_n/1e3:.0f} km' , fontsize=10)
 plt.text(500,600,f'far = {r_f/1e3:.0f} km' , fontsize=10)
 #plt.show()
