@@ -10,7 +10,7 @@ For exporting an ISCE interferogram to GMT, unzip the alos2_sm3_220711_230612.zi
 <img width="534" height="435" alt="aniakchak_alos2_sm3_2022_2023" src="https://github.com/user-attachments/assets/beb5df29-f929-4857-ba8a-d25756dc5c4a" />
 
 
-[https://github.com/fdelgadodelapuente/isce_utils/blob/main/README.md#:~:text=sm_info.py](sm_info.py) takes the stripmapApp metadata, calculates the pixel ratio and then plots the viewing geometry and the swath under the assumption of flat spherical earth. This can be useful for people learning InSAR.
+[sm_info.py](https://github.com/fdelgadodelapuente/isce_utils/blob/main/README.md#:~:text=sm_info.py) takes the stripmapApp metadata, calculates the pixel ratio and then plots the viewing geometry and the swath under the assumption of flat spherical earth. This can be useful for people learning InSAR.
 
 <img width="534" height="435" alt="aniakchak_alos2_sm3_2022_2023" src="https://github.com/fdelgadodelapuente/fdelgadodelapuente.github.io/blob/fdelgadodelapuente-patch-1/images/swath.jpg" />
 
