@@ -2,7 +2,7 @@ ISCE2 MATLAB/Python/GMT utilities for pre and post data processing.
 
 
 
-[sm_info.py](https://github.com/fdelgadodelapuente/isce_utils/blob/main/README.md#:~:text=sm_info.py) reads the stripmapApp metadata, calculates the pixel ratio and then plots the viewing geometry and the swath under the assumption of flat spherical earth. This can be useful for people learning InSAR. This is modified from the 2020 EarthScope ISCE2 Workshop.
+[sm_info.py](https://github.com/fdelgadodelapuente/isce_utils/blob/main/README.md#:~:text=sm_info.py) reads the stripmapApp metadata, calculates the pixel ratio and then plots the viewing geometry and the swath under the assumption of flat spherical earth. This can be useful for people learning InSAR. This is modified from the 2020 EarthScope ISCE2 Workshop. It must be run in the interferogram directory where reference_slc.xml is located.
 
 <img width="534" height="435" alt="aniakchak_alos2_sm3_2022_2023" src="https://github.com/fdelgadodelapuente/fdelgadodelapuente.github.io/blob/fdelgadodelapuente-patch-1/images/swath.jpg" />
 
