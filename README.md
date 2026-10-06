@@ -12,6 +12,8 @@ For exporting an ISCE interferogram to GMT, unzip the alos2_sm3_220711_230612.zi
 
 sm_info.py takes the stripmapApp metadata, calculates the pixel ratio and then plots the viewing geometry and the swath under the assumption of flat spherical earth. This can be useful for people learning InSAR.
 
+<img width="534" height="435" alt="aniakchak_alos2_sm3_2022_2023" src="https://github.com/fdelgadodelapuente/fdelgadodelapuente.github.io/blob/fdelgadodelapuente-patch-1/images/swath.jpg" />
+
 If you use these codes, please cite the following paper.
 
 [Delgado, F. (2026). Abnormally large magma flux does not lead to eruption in subduction zone calderas: The 2022–2023 episode of uplift of Aniakchak Crater (Aleutians). Geophysical Research Letters, 53, e2025GL117786. https://doi.org/10.1029/2025GL117786](https://doi.org/10.1029/2025GL117786)
