@@ -10,7 +10,7 @@ ISCE2 MATLAB/Python/GMT utilities for pre and post data processing.
 
 
 
-Most of the files in here load interferograms in the JPL RMG file format, mask the data, remove ramps with or without an empirical correlation between phase and topography, and for exporting to GMT grids. These utilities require to requiere to download [grdwrite2](https://www.mathworks.com/matlabcentral/fileexchange/26290-grdwrite2) and [grdread2](https://www.mathworks.com/matlabcentral/fileexchange/25683-grdread2). They include ALOS-2 interferograms as sample data sets.  
+Most of the files in here load interferograms in the JPL RMG file format, mask the data, remove ramps with or without an empirical correlation between phase and topography, and export it to GMT grids. These utilities require [grdwrite2](https://www.mathworks.com/matlabcentral/fileexchange/26290-grdwrite2) and [grdread2](https://www.mathworks.com/matlabcentral/fileexchange/25683-grdread2). I included ALOS-2 interferograms as sample data sets.  
 
 alos2_wd1_deramp_example.zip is the swath 4 of an ALOS-2 ScanSAR interferogram in range azimuth coordinates over Aniakchak Crater in Alaska. For removing the ramp uncomment lines 93-95 in deramp.py. These lines will mask unwrapping errors. The code will generate the following image and export the corrected interferogram.
 
