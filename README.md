@@ -1,4 +1,4 @@
-** ISCE2 MATLAB/Python/GMT utilities for pre and post data processing. **
+# ISCE2 Python utilities for data processing.
 
 
 
@@ -8,7 +8,7 @@
 
 
 
-
+# ISCE2 MATLAB/Python/GMT utilities for post data processing. 
 
 Most of the files in here load interferograms in the JPL RMG file format, mask the data, remove ramps with or without an empirical correlation between phase and topography, and export it to GMT grids. These utilities require [grdwrite2](https://www.mathworks.com/matlabcentral/fileexchange/26290-grdwrite2) and [grdread2](https://www.mathworks.com/matlabcentral/fileexchange/25683-grdread2). I included ALOS-2 interferograms as sample data sets.  
 
