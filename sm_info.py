@@ -4,7 +4,7 @@
 #https://github.com/isce-framework/isce2-docs/blob/master/Notebooks/UNAVCO_2020/Stripmap/stripmapApp.ipynb
 #https://github.com/isceplus/2026-isceplus/blob/main/S03_Stripmap_data_processing_with_stripmapApp/stripmapApp.ipynb
 
-#F.D. 2026/10/06 updated to plot swath dimensions . Uncomment line 126 for ALOS-4 data
+#F.D. 2026/10/06-07 updated to plot swath dimensions
 
 import isce
 import isceobj
