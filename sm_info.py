@@ -4,7 +4,7 @@
 #https://github.com/isce-framework/isce2-docs/blob/master/Notebooks/UNAVCO_2020/Stripmap/stripmapApp.ipynb
 #https://github.com/isceplus/2026-isceplus/blob/main/S03_Stripmap_data_processing_with_stripmapApp/stripmapApp.ipynb
 
-#F.D. 2026/10/06 updated to plot swath dimensions 
+#F.D. 2026/10/06 updated to plot swath dimensions . Uncomment line 126 for ALOS-4 data
 
 import isce
 import isceobj
@@ -12,26 +12,32 @@ import isceobj.StripmapProc.StripmapProc as St
 from isceobj.Planet.Planet import Planet
 from isceobj.Planet.AstronomicalHandbook import c as SPEED_OF_LIGHT
 import numpy as np
+import logging
+logging.getLogger("matplotlib").setLevel(logging.WARNING)
 import matplotlib.pyplot as plt
 import os
-import logging
 from pprint import pprint
-
-logging.getLogger("matplotlib").setLevel(logging.WARNING)
+#import warnings
+#warnings.filterwarnings("ignore", module="matplotlib")
+#warnings.filterwarnings("ignore")
 
 stObj = St()
 stObj.configure()
 frame = stObj.loadProduct("reference_slc.xml")
-#frame = stObj.loadProduct("20221106.slc_slc.xml")
 print("Speed of light = {0} m/s".format(SPEED_OF_LIGHT))
-print("Wavelength = {0} m".format(frame.radarWavelegth))
+print("Radar Wavelength = {0} m".format(frame.radarWavelegth))
 print("Slant Range Pixel Size = {0} m".format(frame.instrument.rangePixelSize))
-#print (frame.instrument.rangePixelSize - SPEED_OF_LIGHT/(2*frame.instrument.range_sampling_rate))
-print ('')
-print((frame.instrument))
+print("Radar frequency = {0} GHz".format(frame.instrument.radarFrequency/1e9))
+print("Incidence Angle = {0}º".format(frame.instrument.incidenceAngle))
+print("Chirp Slope = {0} ".format(frame.instrument.chirpSlope))
+print("Range Sampling Rate = {0} MHz".format(frame.instrument.rangeSamplingRate/1e6))
+print("Pulse Repetition Frequency = {0} Hz".format(frame.instrument.PRF))
+print("Difference Slant Range Pixel Size = {0} m".format(frame.instrument.rangePixelSize - SPEED_OF_LIGHT/(2*frame.instrument.rangeSamplingRate)))
+#print ('')
+#print((frame.instrument))
 #print((frame.instrument.__dict__))
-pprint(frame.instrument.__dict__, sort_dicts=True)
-print ('')
+#pprint(frame.instrument.__dict__, sort_dicts=True)
+#print ('')
 
 #For azimuth pixel size we need to multiply azimuth time interval by the platform velocity along the track
 
@@ -40,13 +46,13 @@ t_mid = frame.sensingMid # the acquisition time at the middle of the scene
 t_stop=frame.sensingStop
 t_start=frame.sensingStart
 st_mid=frame.orbit.interpolateOrbit(t_mid) #get the orbit for t_mid
-#st_stop=frame.orbit.interpolateOrbit(t_stop)
-#st_start=frame.orbit.interpolateOrbit(t_start)
+st_stop=frame.orbit.interpolateOrbit(t_stop)
+st_start=frame.orbit.interpolateOrbit(t_start)
 Vs = st_mid.getScalarVelocity() # platform velocity
-#vels = [st_start.getScalarVelocity(), st_mid.getScalarVelocity(), st_stop.getScalarVelocity()]
-#print('Vels',vels)
+vels = [st_start.getScalarVelocity(), st_mid.getScalarVelocity(), st_stop.getScalarVelocity()]
+print('Vels',vels)
 prf = frame.instrument.PRF # pulse repitition frequency
-print('PRF',prf,' Hz')
+#print('PRF',prf,' Hz')
 ATI = 1.0/prf #Azimuth time interval 
 az_pixel_size = ATI*Vs #Azimuth Pixel size
 print("Azimuth Pixel Size = {0} m".format(az_pixel_size))
@@ -115,6 +121,9 @@ Re2 = Re + h;
 Rs  = Re + H;
 r_n = n
 r_f = rmax
+r_f2 = r_n + p*(nx-1)
+print("Difference Far Field Slant Range = {0} km".format((r_f2 - r_f)/1e3))
+#r_f=r_f2  #Uncomment for ALOS-4 data, code has a bug on the Far Field Slant Range
 
 psi_nr = np.arccos(  (Rs**2 + Re2**2 -r_n**2)/(2*Rs*Re2)  ); #near range
 psi_fr = np.arccos(  (Rs**2 + Re2**2 -r_f**2)/(2*Rs*Re2)  ); #far range
