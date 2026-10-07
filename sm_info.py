@@ -16,6 +16,7 @@ import logging
 logging.getLogger("matplotlib").setLevel(logging.WARNING)
 import matplotlib.pyplot as plt
 import os
+import sys
 from pprint import pprint
 #import warnings
 #warnings.filterwarnings("ignore", module="matplotlib")
@@ -24,6 +25,8 @@ from pprint import pprint
 stObj = St()
 stObj.configure()
 frame = stObj.loadProduct("reference_slc.xml")
+mission = frame.catalog["instrument"]["platform"]["mission"]
+print("Mission = {0}".format(mission))
 print("Speed of light = {0} m/s".format(SPEED_OF_LIGHT))
 print("Radar Wavelength = {0} m".format(frame.radarWavelegth))
 print("Slant Range Pixel Size = {0} m".format(frame.instrument.rangePixelSize))
@@ -37,11 +40,10 @@ print("Difference Slant Range Pixel Size = {0} m".format(frame.instrument.rangeP
 #print((frame.instrument))
 #print((frame.instrument.__dict__))
 #pprint(frame.instrument.__dict__, sort_dicts=True)
+#print(list(frame.catalog.keys()))
 #print ('')
 
 #For azimuth pixel size we need to multiply azimuth time interval by the platform velocity along the track
-
-
 t_mid = frame.sensingMid # the acquisition time at the middle of the scene
 t_stop=frame.sensingStop
 t_start=frame.sensingStart
@@ -123,7 +125,9 @@ r_n = n
 r_f = rmax
 r_f2 = r_n + p*(nx-1)
 print("Difference Far Field Slant Range = {0} km".format((r_f2 - r_f)/1e3))
-#r_f=r_f2  #Uncomment for ALOS-4 data, code has a bug on the Far Field Slant Range
+
+if mission =='ALOS4': #ALOS-4 parsing code has a bug on the Far Field Slant Range
+    r_f=r_f2  
 
 psi_nr = np.arccos(  (Rs**2 + Re2**2 -r_n**2)/(2*Rs*Re2)  ); #near range
 psi_fr = np.arccos(  (Rs**2 + Re2**2 -r_f**2)/(2*Rs*Re2)  ); #far range
@@ -158,4 +162,10 @@ plt.text(500,650,f'near  = {r_n/1e3:.0f} km' , fontsize=10)
 plt.text(500,600,f'far = {r_f/1e3:.0f} km' , fontsize=10)
 #plt.show()
 plt.savefig('swath.pdf', bbox_inches='tight')
-os.system('open swath.pdf')
+
+if sys.platform == "linux" or sys.platform == "linux2":
+    print("Running on Linux")
+    os.system('xdg-open swath.pdf')
+elif sys.platform == "darwin":
+    print("Running on macOS")
+    os.system('open swath.pdf')
