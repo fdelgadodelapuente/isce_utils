@@ -126,7 +126,7 @@ r_f = rmax
 r_f2 = r_n + p*(nx-1)
 print("Difference Far Field Slant Range = {0} km".format((r_f2 - r_f)/1e3))
 
-if mission =='ALOS4': #ALOS-4 parsing code has a bug on the Far Field Slant Range
+if mission =='ALOS4' or mission =='ALOS2': #ALOS-4 parsing code has a bug on the Far Field Slant Range
     r_f=r_f2  
 
 psi_nr = np.arccos(  (Rs**2 + Re2**2 -r_n**2)/(2*Rs*Re2)  ); #near range
